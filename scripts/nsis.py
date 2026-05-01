@@ -10,12 +10,26 @@ import os
 import shutil
 import subprocess
 
+# -display sdl or -display gtk,gl=on require the ANGLE libraries.
+angle_dll_files = [
+    "libEGL.dll",
+    "libEGL_vulkan_secondaries.dll",
+    "libGLESv1_CM.dll",
+    "libGLESv2.dll",
+    "libGLESv2_vulkan_secondaries.dll",
+    "libGLESv2_with_capture.dll",
+    "libVkICD_mock_icd.dll",
+    "libfeature_support.dll",
+    "libvk_swiftshader.dll",
+]
+
 
 def signcode(path):
     cmd = os.environ.get("SIGNCODE")
     if not cmd:
         return
     subprocess.run([cmd, path])
+
 
 def find_deps(exe_or_dll, search_path, analyzed_deps):
     deps = [exe_or_dll]
@@ -41,6 +55,7 @@ def find_deps(exe_or_dll, search_path, analyzed_deps):
 
     return analyzed_deps, deps
 
+
 def main():
     parser = argparse.ArgumentParser(description="QEMU NSIS build helper.")
     parser.add_argument("outfile")
@@ -61,28 +76,23 @@ def main():
         ) as nsh, open(
             os.path.join(destdir + prefix, "system-mui-text.nsh"), "w"
         ) as muinsh:
-            for exe in sorted(glob.glob(
-                os.path.join(destdir + prefix, "qemu-system-*.exe")
-            )):
+            for exe in sorted(
+                glob.glob(os.path.join(destdir + prefix, "qemu-system-*.exe"))
+            ):
                 exe = os.path.basename(exe)
                 arch = exe[12:-4]
-                nsh.write(
-                    """
+                nsh.write("""
                 Section "{0}" Section_{0}
                 SetOutPath "$INSTDIR"
                 File "${{BINDIR}}\\{1}"
                 SectionEnd
-                """.format(
-                        arch, exe
-                    )
-                )
-                if arch.endswith('w'):
+                """.format(arch, exe))
+                if arch.endswith("w"):
                     desc = arch[:-1] + " emulation (GUI)."
                 else:
                     desc = arch + " emulation."
 
-                muinsh.write(
-                    """
+                muinsh.write("""
                 !insertmacro MUI_DESCRIPTION_TEXT ${{Section_{0}}} "{1}"
                 """.format(arch, desc))
 
@@ -91,6 +101,17 @@ def main():
         dlldir = destdir + prefix
 
         analyzed_deps = set()
+        for dll in angle_dll_files:
+            dep = os.path.join(search_path, dll)
+            dllfile = os.path.join(dlldir, os.path.basename(dep))
+            analyzed_deps, deps = find_deps(dep, search_path, analyzed_deps)
+            deps = set(deps)
+            # copy all dlls to the DLLDIR
+            for dep in deps:
+                dllfile = os.path.join(dlldir, os.path.basename(dep))
+                print("Copying '%s' to '%s'" % (dep, dllfile))
+                shutil.copy(dep, dllfile)
+
         for exe in glob.glob(os.path.join(destdir + prefix, "*.exe")):
             signcode(exe)
 
@@ -110,7 +131,9 @@ def main():
             iconsdir = "/mingw64/share/icons"
         elif args.cpu == "aarch64":
             iconsdir = "/clangarm64/share/icons"
-        if os.path.exists("/usr/" + args.cpu + "-w64-mingw32/sys-root/mingw/share/icons"):
+        if os.path.exists(
+            "/usr/" + args.cpu + "-w64-mingw32/sys-root/mingw/share/icons"
+        ):
             iconsdir = "/usr/" + args.cpu + "-w64-mingw32/sys-root/mingw/share/icons"
 
         makensis = [
@@ -135,6 +158,7 @@ def main():
         subprocess.run(makensis)
     finally:
         print("Done.")
+
 
 if __name__ == "__main__":
     main()

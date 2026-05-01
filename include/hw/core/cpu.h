@@ -419,6 +419,7 @@ struct qemu_work_item;
  *   QOM parent.
  *   Under TCG this value is propagated to @tcg_cflags.
  *   See TranslationBlock::TCG CF_CLUSTER_MASK.
+ * @start_powered_off: Indicates whether the CPU starts in powered-off state.
  * @tcg_cflags: Pre-computed cflags for this cpu.
  * @nr_threads: Number of threads within this CPU core.
  * @thread: Host thread details, only live once @created is #true
@@ -504,7 +505,6 @@ struct CPUState {
     /* Endianness, false = little endian, true = big endian. */
     bool bigendian;
 
-    /* Should CPU start in powered-off state? */
     bool start_powered_off;
 
     bool unplug;
@@ -1219,5 +1219,17 @@ enum CacheType {
     INSTRUCTION_CACHE,
     UNIFIED_CACHE
 };
+
+struct CPUCoreCaches {
+    enum CacheType type;
+    uint32_t sets;
+    uint32_t size;
+    uint32_t level;
+    uint16_t linesize;
+    uint8_t attributes; /* write policy: 0x0 write back, 0x1 write through */
+    uint8_t associativity;
+};
+
+typedef struct CPUCoreCaches CPUCoreCaches;
 
 #endif

@@ -120,7 +120,6 @@ QEMU_EXTERN_C int daemon(int, int);
 #pragma GCC diagnostic pop
 
 #include <string.h>
-#include <strings.h>
 #include <inttypes.h>
 #include <limits.h>
 /* Put unistd.h before time.h as that triggers localtime_r/gmtime_r

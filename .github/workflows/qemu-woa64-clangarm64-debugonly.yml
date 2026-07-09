@@ -35,7 +35,7 @@ jobs:
           update: true
           # Install the necessary build tools and compilers
           install: >-
-            curl
+            wget
             
       - name: checkout recovery directory
         # shell: powershell
@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CI_DEBUG_ARTIFACT_GITHUB_TOKEN }}
           
         run: |
-          curl -H "Authorization: Bearer $GITHUB_TOKEN" -sSfL "$CI_DEBUG_ARTIFACT_URL" -o  builddir.zip 
+          wget --header="Authorization: Bearer $GITHUB_TOKEN" "$CI_DEBUG_ARTIFACT_URL" -O  builddir.zip 
 
 
       - name: Unzip with PowerShell

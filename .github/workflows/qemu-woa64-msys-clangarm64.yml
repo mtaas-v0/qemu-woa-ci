@@ -29,9 +29,8 @@ jobs:
           msystem: CLANGARM64
           update: false
 
-      - name: Where are my dependent dlls?
+      - name: true installation path?
         continue-on-error: false
-        id: test_lib_dll
         run: |
           pwd -W
           exit 1

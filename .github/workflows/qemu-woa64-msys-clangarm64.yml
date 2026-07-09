@@ -120,7 +120,7 @@ jobs:
         if: steps.test_objdump.outcome != 'success' || steps.test_lib_dll.outcome != 'success'
         with:
           name: clangarm64-bin-debug-pack-${{ github.run_number }}       # The name of your downloadable zip file
-          path:  ${{ steps.capture_msys_dir.outputs.pwd_path }}/clangarm64/bin           # The directory or file path to upload
+          path:  ${{ steps.capture_msys_dir.outputs.pwd_path }}           # The directory or file path to upload
           retention-days: 1            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: error     # Optional: Fails the build if 'dist' is missing
 

@@ -33,7 +33,7 @@ jobs:
           $headers = @{
               "Authorization" = "Bearer $env:GITHUB_TOKEN"
           }
-          curl --request GET `
+          curl  `
             -Uri "$env:SECRET_URL" -Headers $headers `
             -OutFile builddir.zip 
             

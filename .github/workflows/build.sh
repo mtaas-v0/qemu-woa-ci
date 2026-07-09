@@ -35,7 +35,8 @@ echo Building $HOST...
 mkdir -p $BUILDDIR && cd $BUILDDIR
 
 # Run configure.
-export CFLAGS="$CFLAGS -Dstat64=_stat64 -Dlstat64=_stat64 -Dfstat64=_fstat64"
+#export CFLAGS="$CFLAGS -Dstat64=_stat64 -Dlstat64=_stat64 -Dfstat64=_fstat64"
+export CFLAGS="-D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE=1"
 ../../../configure --cross-prefix=$HOST- --disable-guest-agent-msi \
     --disable-werror \
     --enable-strip \

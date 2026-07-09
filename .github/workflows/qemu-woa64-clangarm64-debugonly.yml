@@ -25,17 +25,6 @@ jobs:
         shell: msys2 {0}
 
     steps:
-#      - name: Checkout Source Code
-#        uses: actions/checkout@v7
-      - name: Setup MSYS2 curl
-        uses: msys2/setup-msys2@v2
-        with:
-          # Select the native Windows ARM64 environment
-          msystem: CLANGARM64
-          update: false
-          # Install the necessary build tools and compilers
-          install: >-
-            wget
             
       - name: checkout recovery directory
         # shell: powershell
@@ -44,8 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CI_DEBUG_ARTIFACT_GITHUB_TOKEN }}
           
         run: |
-          wget --header="Authorization: Bearer $GITHUB_TOKEN" --header="Accept: application/vnd.github.v3+json" "$CI_DEBUG_ARTIFACT_URL" -O  builddir.zip 
-
+          gh api repos/mtaas-v0/qemu-woa-ci/actions/artifacts/8200210448/zip > builddir.zip 
 
       - name: Unzip with PowerShell
         shell: powershell

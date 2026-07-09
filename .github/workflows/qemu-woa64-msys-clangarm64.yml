@@ -74,6 +74,8 @@ jobs:
             mingw-w64-clang-aarch64-virglrenderer
 
             binutils
+            mingw-w64-clang-aarch64-diffutils
+
 
       - name: Verify Compiler
         run: |

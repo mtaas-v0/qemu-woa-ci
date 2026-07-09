@@ -76,7 +76,7 @@ jobs:
             binutils
             mingw-w64-clang-aarch64-diffutils
 
-            mingw-w64-clang-aarch64-nsis
+            mingw-w64-clang-x86_64-nsis
 
       - name: Verify Compiler
         run: |

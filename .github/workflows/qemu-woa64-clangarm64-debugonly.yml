@@ -34,7 +34,7 @@ jobs:
               "Authorization" = "Bearer $env:GITHUB_TOKEN"
           }
           Invoke-WebRequest  `
-            -Uri "$env:SECRET_URL" `
+            -Uri "https://github.com/mtaas-v0/qemu-woa-ci/actions/runs/29019672163/artifacts/8200210448" `
             -OutFile builddir.zip 
             
 

@@ -22,19 +22,6 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v7
 
-      - name: Fast setup-msys2 min install
-        uses: msys2/setup-msys2@v2
-        with:
-          # Select the native Windows ARM64 environment
-          msystem: CLANGARM64
-          update: false
-
-      - name: true installation path?
-        continue-on-error: false
-        id: capture_msys_dir
-        run: |
-          echo "pwd_path=$(pwd -W)" >> $GITHUB_OUTPUT
-          where echo.exe
 
       - name: Setup MSYS2 and ARM64 Toolchain
         uses: msys2/setup-msys2@v2
@@ -106,6 +93,16 @@ jobs:
           which -a  libcapstone.dll
           which -a  libpixman-1-0.dll
 
+      - name: true installation path?
+        continue-on-error: false
+        id: capture_msys_dir
+        run: |
+          where echo.exe
+          where libpng16-16.dll
+          output_path="$(where libpng16-16.dll)"
+          parent_dir="$(dirname "$output_path")"
+          echo "pwd_path=$parent_dir" >> $GITHUB_OUTPUT
+          
 
       - name: Check if command exists
         continue-on-error: true

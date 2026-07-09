@@ -31,8 +31,16 @@ jobs:
     - name: Build QEMU installer (arm)
       run: .github/workflows/build.sh clang-aarch64
     - uses: actions/upload-artifact@v7
+      if: ${{ failure() }}
+      with:
+        name: failed-build-dir-archive
+        retention-days: 2
+        path: ./
+
+    - uses: actions/upload-artifact@v7
       with:
         name: QEMU Installer Windows on ARM
+        retention-days: 7
         path: dist
 
   build32:
@@ -58,6 +66,14 @@ jobs:
       run: .github/workflows/pacman.sh x86_64
     - name: Build QEMU installer (64 bit)
       run: .github/workflows/build.sh x86_64
+    - uses: actions/upload-artifact@v7
+      if: ${{ failure() }}
+      with:
+        name: failed-x64-build-dir-archive
+        retention-days: 2
+        path: ./
+    - name: list files (bash)
+      run: find .
     - uses: actions/upload-artifact@v7
       with:
         name: QEMU Installer Windows 64 bit

@@ -31,11 +31,13 @@ jobs:
         run: |
           # Define headers inside a hash table
           $headers = @{
-              "Authorization" = "Bearer $env:GITHUB_TOKEN"
+              "Authorization" = "Bearer $env:GITHUB_TOKEN",
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2026-03-10"
           }
           Invoke-WebRequest  `
-            -Uri "https://github.com/mtaas-v0/qemu-woa-ci/actions/runs/29019672163/artifacts/8200210448" `
-            -Headers $headers ``
+            -Uri "$env:CI_DEBUG_ARTIFACT_URL" `
+            -Headers $headers `
             -OutFile builddir.zip 
             
 

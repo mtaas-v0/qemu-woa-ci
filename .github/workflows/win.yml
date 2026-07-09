@@ -31,7 +31,7 @@ jobs:
     - name: Build QEMU installer (arm)
       run: .github/workflows/build.sh clang-aarch64
     - uses: actions/upload-artifact@v7
-      if: ${{ failure() }}
+      if: ${{ failure() && 0 }}
       with:
         name: failed-build-dir-archive
         retention-days: 2
@@ -67,7 +67,7 @@ jobs:
     - name: Build QEMU installer (64 bit)
       run: .github/workflows/build.sh x86_64
     - uses: actions/upload-artifact@v7
-      if: ${{ failure() }}
+      if: ${{ failure() && 0 }}
       with:
         name: failed-x64-build-dir-archive
         retention-days: 2

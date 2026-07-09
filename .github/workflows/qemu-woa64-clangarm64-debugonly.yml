@@ -27,7 +27,7 @@ jobs:
         env:
           SECRET_URL: ${{ secrets.CI_DEBUG_ARTIFACT_URL }} 
         run: |
-          curl -L -o builddir.zip $SECRET_URL
+          curl -L -o builddir.zip %SECRET_URL%
 
 
       - name: Unzip with PowerShell

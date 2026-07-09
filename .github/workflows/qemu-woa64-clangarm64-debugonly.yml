@@ -21,7 +21,16 @@ jobs:
     steps:
 #      - name: Checkout Source Code
 #        uses: actions/checkout@v7
-
+      - name: Setup curl
+        uses: msys2/setup-msys2@v2
+        with:
+          # Select the native Windows ARM64 environment
+          msystem: CLANGARM64
+          update: true
+          # Install the necessary build tools and compilers
+          install: >-
+            curl
+            
       - name: checkout recovery directory
         env:
           SECRET_URL: ${{ secrets.CI_DEBUG_ARTIFACT_URL }} 

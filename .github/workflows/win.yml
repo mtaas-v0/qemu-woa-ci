@@ -74,6 +74,9 @@ jobs:
         path: ./
     - name: list files (bash)
       run: find .
+    - name: list files (bash) - mingw64
+      run: find /mingw64/lib
+      
     - uses: actions/upload-artifact@v7
       with:
         name: QEMU Installer Windows 64 bit

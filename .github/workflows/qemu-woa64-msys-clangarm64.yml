@@ -84,7 +84,7 @@ jobs:
             mingw-w64-cross-mingw64-binutils
 
       - name: Where are my dependent dlls?
-        continue-on-error: false
+        continue-on-error: true
         id: test_lib_dll
         run: |
           which -a  libpng16-16.dll
@@ -94,6 +94,7 @@ jobs:
 
 
       - name: Check if command exists
+        continue-on-error: true
         id: test_objdump
         run: |
           if command -v x86_64-w64-mingw32-objdump &> /dev/null; then

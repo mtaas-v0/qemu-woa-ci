@@ -73,6 +73,7 @@ jobs:
             mingw-w64-clang-aarch64-usbredir
             mingw-w64-clang-aarch64-virglrenderer
 
+            binutils
 
       - name: Verify Compiler
         run: |
@@ -98,7 +99,7 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          #name: testing-build       # The name of your downloadable zip file
+          name: builddir-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
           path: ./                  # The directory or file path to upload
           retention-days: 7            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: error     # Optional: Fails the build if 'dist' is missing

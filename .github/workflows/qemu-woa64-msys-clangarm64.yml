@@ -81,6 +81,16 @@ jobs:
             mingw-w64-clang-x86_64-nsis
             mingw-w64-clang-aarch64-ninja
 
+            mingw-w64-cross-mingw64-binutils
+
+      - name: Where are my dependent dlls?
+        continue-on-error: false
+        run: |
+          which -a  libpng16-16.dll
+          which -a  libgnutls-30.dll
+          which -a  libcapstone.dll
+          which -a  libpixman-1-0.dll
+          
       - name: Verify Compiler
         run: |
           clang --version
@@ -113,7 +123,7 @@ jobs:
         uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: builddir-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
-          path: ./                  # The directory or file path to upload
+          name: buildonly-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
+          path: ./build/           # The directory or file path to upload
           retention-days: 7            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: error     # Optional: Fails the build if 'dist' is missing

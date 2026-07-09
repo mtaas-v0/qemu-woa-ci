@@ -1,4 +1,4 @@
-name: MinGW Windows ARM64 CI
+name: MinGW Windows ARM64 CI Debugging
 
 
 on:

@@ -327,7 +327,8 @@ endif
 
 foreach lang : all_languages
   compiler = meson.get_compiler(lang)
-  if compiler.get_id() == 'gcc' and compiler.version().version_compare('>=10.4')
+  if compiler.get_id() == 'gcc' 
+    # and compiler.version().version_compare('>=10.4')
     # ok
   elif compiler.get_id() == 'clang' and compiler.compiles('''
       #ifdef __apple_build_version__

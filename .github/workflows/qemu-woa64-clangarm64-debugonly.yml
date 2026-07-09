@@ -3,6 +3,12 @@ name: MinGW Windows ARM64 CI Debugging
 
 on:
   workflow_dispatch:
+    inputs:
+        CI_DEBUG_ARTIFACT_URL_OVERRIDE:
+          description: 'CI_DEBUG_ARTIFACT_URL Override'
+          required: false
+          type: string
+          default: ''
 #  push:
 #    branches: [ main, master ]
 #  pull_request:
@@ -25,7 +31,7 @@ jobs:
       - name: checkout recovery directory
         shell: powershell
         env:
-          SECRET_URL: ${{ secrets.CI_DEBUG_ARTIFACT_URL }} 
+          CI_DEBUG_ARTIFACT_URL: ${{ inputs.CI_DEBUG_ARTIFACT_URL_OVERRIDE || secrets.CI_DEBUG_ARTIFACT_URL }} 
           GITHUB_TOKEN: ${{ secrets.CI_DEBUG_ARTIFACT_GITHUB_TOKEN }}
           
         run: |

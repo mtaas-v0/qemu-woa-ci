@@ -42,7 +42,7 @@ export LD="x86_64-w64-mingw32-g++"
     --disable-werror \
     --enable-strip \
     --extra-cflags="-isystem /$MINGW/include" \
-    --extra-ldflags="-L/$MINGW/lib"
+    --extra-ldflags="-L/$MINGW/lib -lmingw32 -lmsvcrt"
 
 cp config.log $DISTDIR/
 

@@ -32,7 +32,7 @@ jobs:
         with:
           # Select the native Windows ARM64 environment
           msystem: CLANGARM64
-          update: true
+          update: false
           # Install the necessary build tools and compilers
           install: >-
             wget
@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CI_DEBUG_ARTIFACT_GITHUB_TOKEN }}
           
         run: |
-          wget --header="Authorization: Bearer $GITHUB_TOKEN" "$CI_DEBUG_ARTIFACT_URL" -O  builddir.zip 
+          wget --header="Authorization: Bearer $GITHUB_TOKEN" --header="Accept: application/vnd.github.v3+json" "$CI_DEBUG_ARTIFACT_URL" -O  builddir.zip 
 
 
       - name: Unzip with PowerShell

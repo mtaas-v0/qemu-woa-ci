@@ -29,11 +29,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
         run: |
-          curl --request GET \
-            --url "$SECRET_URL" \
-            --header "Authorization: Bearer $GITHUB_TOKEN" \
-            --header "Accept: application/vnd.github+json" \
-            --header "X-GitHub-Api-Version: 2022-11-28"  \
+          curl --request GET `
+            --url "$env:SECRET_URL" `
+            --header "Authorization: Bearer $env:GITHUB_TOKEN" `
+            --header "Accept: application/vnd.github+json" `
+            --header "X-GitHub-Api-Version: 2022-11-28"  `
             -o builddir.zip -L 
             
 

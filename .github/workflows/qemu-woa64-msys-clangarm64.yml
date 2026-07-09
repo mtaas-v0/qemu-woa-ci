@@ -22,6 +22,20 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v7
 
+      - name: Fast setup-msys2 min install
+        uses: msys2/setup-msys2@v2
+        with:
+          # Select the native Windows ARM64 environment
+          msystem: CLANGARM64
+          update: false
+
+      - name: Where are my dependent dlls?
+        continue-on-error: false
+        id: test_lib_dll
+        run: |
+          pwd -W
+          exit 1
+
       - name: Setup MSYS2 and ARM64 Toolchain
         uses: msys2/setup-msys2@v2
         with:

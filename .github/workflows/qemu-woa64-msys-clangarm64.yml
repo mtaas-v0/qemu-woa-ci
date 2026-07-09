@@ -76,11 +76,16 @@ jobs:
             binutils
             mingw-w64-clang-aarch64-diffutils
 
+            mingw-w64-clang-aarch64-nsis
 
       - name: Verify Compiler
         run: |
           clang --version
           gcc --version || true  # (Note: CLANGARM64 uses clang as the main driver)
+
+      - name: TODO
+        run: |
+          echo "docs build is still disabled"
 
       - name: Build Project
         run: |
@@ -88,6 +93,9 @@ jobs:
           export CXX=clang++
           ./configure --disable-guest-agent-msi --disable-werror
           make
+          
+      - name: try build installer
+        run: |
           date=$(date +%Y%m%d)
           mkdir dist
           INSTALLER=dist/qemu-$ARCH-setup-$date.exe
@@ -100,6 +108,7 @@ jobs:
       #debugging ci workflow
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: builddir-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
           path: ./                  # The directory or file path to upload

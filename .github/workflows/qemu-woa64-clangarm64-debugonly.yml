@@ -22,6 +22,14 @@ jobs:
 #      - name: Checkout Source Code
 #        uses: actions/checkout@v7
 
+      - name: checkout recovery directory
+        env:
+          SECRET_URL: ${{ secrets.CI_DEBUG_ARTIFACT_URL }} 
+        run: |
+          curl -L -o builddir.zip $SECRET_URL
+          unzip  builddir.zip
+          find . 
+
       - name: Setup MSYS2 and ARM64 Toolchain
         uses: msys2/setup-msys2@v2
         with:
@@ -90,14 +98,14 @@ jobs:
         run: |
           echo "docs build is still disabled"
 
+      
+
       - name: Build Project
         run: |
           export CC=clang
           export CXX=clang++
           # ./configure --disable-guest-agent-msi --disable-werror
           # make
-          curl -L -o builddir.zip {{ secret.CI_DEBUG_ARTIFACT_URL }}
-          unzip  builddir.zip
           
       - name: try build installer
         run: |

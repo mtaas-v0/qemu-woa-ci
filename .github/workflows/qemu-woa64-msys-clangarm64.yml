@@ -91,6 +91,8 @@ jobs:
           ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe x86_64-w64-mingw32-objdump.exe
           echo PATH=$PATH
           where x86_64-w64-mingw32-objdump.exe
+          mkdir debug_sample
+          cp x86_64-w64-mingw32-objdump.exe debug_sample/
 
       - name: Check python can call 64-w32-objump
         run: |

@@ -10,7 +10,7 @@ import os
 import shutil
 import subprocess
 import tempfile
-
+from pathlib import Path
 
 def signcode(path):
     cmd = os.environ.get("SIGNCODE")
@@ -20,7 +20,24 @@ def signcode(path):
 
 def find_deps(exe_or_dll, search_path, analyzed_deps):
     deps = [exe_or_dll]
-    output = subprocess.check_output(["x86_64-w64-mingw32-objdump", "-p", exe_or_dll], text=True)
+
+    try:
+        output = subprocess.check_output(["x86_64-w64-mingw32-objdump", "-p", exe_or_dll], text=True)
+    except subprocess.CalledProcessError:
+        debug_sample_dir = Path('debug_sample')
+        if not debug_sample_dir.exists():
+            debug_sample_dir.mkdir()
+        if Path("x86_64-w64-mingw32-objdump.exe").exists():
+            (debug_sample_dir / "x86_64-w64-mingw32-objdump.exe").write_bytes(
+                Path("x86_64-w64-mingw32-objdump.exe").read_bytes()
+            )
+        if Path(exe_or_dll).exists():
+            (debug_sample_dir / Path(exe_or_dll).name).write_bytes(
+                Path(exe_or_dll).read_bytes()
+            )
+        subprocess.check_call(["x86_64-w64-mingw32-objdump", "-p", exe_or_dll], shell=True)
+        raise
+    
     output = output.split("\n")
     for line in output:
         if not line.lstrip().startswith("DLL Name: "):

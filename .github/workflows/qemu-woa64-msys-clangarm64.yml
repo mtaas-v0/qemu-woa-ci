@@ -164,7 +164,7 @@ jobs:
         run: find .
 
       #debugging ci workflow
-      - name: Upload Build Artifacts
+      - name: Upload "build" Artifacts
         uses: actions/upload-artifact@v7
         if: steps.main_build.outcome == 'success' 
         with:
@@ -173,11 +173,13 @@ jobs:
           retention-days: 7            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: error     # Optional: Fails the build if 'dist' is missing
 
-      - name: Upload Build Artifacts
+      - name: Upload "debug_sample" Artifacts
         uses: actions/upload-artifact@v7
-        if: steps.main_build.outcome == 'success' 
+        if: always()
         with:
           name: dist-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
-          path: ./dist/           # The directory or file path to upload
+          path: ./debug_sample/           # The directory or file path to upload
           retention-days: 7            # Optional: How long to keep the files (Default: 90)
-          if-no-files-found: error     # Optional: Fails the build if 'dist' is missing
+          if-no-files-found: warn     # Optional: Fails the build if 'dist' is missing
+      
+          

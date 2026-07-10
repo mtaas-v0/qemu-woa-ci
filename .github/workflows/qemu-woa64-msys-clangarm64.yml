@@ -90,10 +90,12 @@ jobs:
           ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe /clangarm64/bin/x86_64-w64-mingw32-objdump.exe
           ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe x86_64-w64-mingw32-objdump.exe
           echo PATH=$PATH
+          where x86_64-w64-mingw32-objdump.exe
 
       - name: Check python can call 64-w32-objump
         run: |
           python.exe -c "import subprocess; subprocess.check_call(['objdump', '--version'])"
+          python.exe -c "import subprocess; subprocess.check_call(['x86_64-w64-mingw32-objdump.exe', '--version'])"
           
   
       - name: Where are my dependent dlls?

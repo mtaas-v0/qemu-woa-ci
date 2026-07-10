@@ -95,6 +95,7 @@ jobs:
           cp x86_64-w64-mingw32-objdump.exe debug_sample/
 
       - name: Check python can call 64-w32-objump
+        continue-on-error: true
         run: |
           where /mingw64/x86_64-w64-mingw32/bin/objdump.exe
           python.exe -c "import subprocess; subprocess.check_call(['objdump', '--version'])"

@@ -84,6 +84,7 @@ jobs:
 
             mingw-w64-cross-mingw64-binutils
             mingw-w64-x86_64-binutils
+            mingw-w64-x86_64-nsis
 
       - name: Alias x86_64-w64-mingw32-objdump.exe
         run: |
@@ -176,10 +177,14 @@ jobs:
       - name: try build installer
         if: steps.main_build.outcome == 'success' 
         run: |
-          date=$(date +%Y%m%d)
+          echo "Current MSYSTEM is: $MSYSTEM"
+          set MSYSTEM=UCRT64
           mkdir dist
-          INSTALLER=dist/qemu-$ARCH-setup-$date.exe
-          make installer SIGNCODE=false
+          date=$(date +%Y%m%d)
+          export INSTALLER=dist/qemu-$ARCH-setup-$date.exe
+          msys2 -c 'make installer SIGNCODE=false'
+         
+          
       # Recursive list using PowerShell (default shell on Windows runners)
       - name: List all files recursively (Bash)
         if: always()

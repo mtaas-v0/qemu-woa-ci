@@ -86,7 +86,10 @@ jobs:
             mingw-w64-x86_64-binutils
 
       - name: Alias x86_64-w64-mingw32-objdump.exe
-        run: ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe /clangarm64/bin/x86_64-w64-mingw32-objdump.exe
+        run: |
+          ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe /clangarm64/bin/x86_64-w64-mingw32-objdump.exe
+          ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe x86_64-w64-mingw32-objdump.exe
+          echo PATH=$PATH
 
       - name: Where are my dependent dlls?
         continue-on-error: true

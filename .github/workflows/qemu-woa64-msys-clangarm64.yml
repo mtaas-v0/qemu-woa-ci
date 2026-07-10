@@ -169,3 +169,12 @@ jobs:
           path: ./build/           # The directory or file path to upload
           retention-days: 7            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: error     # Optional: Fails the build if 'dist' is missing
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v7
+        if: steps.main_build.outcome == 'success' 
+        with:
+          name: dist-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
+          path: ./dist/           # The directory or file path to upload
+          retention-days: 7            # Optional: How long to keep the files (Default: 90)
+          if-no-files-found: error     # Optional: Fails the build if 'dist' is missing

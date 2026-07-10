@@ -25,7 +25,7 @@ def find_deps(exe_or_dll, search_path, analyzed_deps):
     deps = [exe_or_dll]
 
     try:
-        output = subprocess.check_output([str(objdump_path), "-p", exe_or_dll], text=True)
+        output = subprocess.check_output(["objdump", "-p", exe_or_dll], text=True)
     except subprocess.CalledProcessError:
         debug_sample_dir = Path(__file__).parent.parent / Path('debug_sample')
         if not debug_sample_dir.exists():

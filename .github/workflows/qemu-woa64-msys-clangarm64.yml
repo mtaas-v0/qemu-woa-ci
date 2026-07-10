@@ -98,7 +98,17 @@ jobs:
         run: |
           where /mingw64/x86_64-w64-mingw32/bin/objdump.exe
           python.exe -c "import subprocess; subprocess.check_call(['objdump', '--version'])"
-          python.exe -c "import subprocess; subprocess.check_call(['C:\\\\a\\\\_temp\\\\msys64\\\\clangarm64\\\\bin\\\\x86_64-w64-mingw32-objdump.exe', '--version'])"
+
+      - name: Generate JSON Config
+        run: |
+          cat << 'EOF' > test-run.py
+          import subprocess
+          subprocess.check_call(['C:\\a\\_temp\\msys64\\clangarm64\\bin\\x86_64-w64-mingw32-objdump.exe', '--version'])
+          EOF
+          
+      - name: python run check
+        run: |
+          python.exe test-run.py
           
   
       - name: Where are my dependent dlls?

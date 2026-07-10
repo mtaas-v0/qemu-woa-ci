@@ -83,6 +83,10 @@ jobs:
             mingw-w64-clang-aarch64-ninja
 
             mingw-w64-cross-mingw64-binutils
+            mingw-w64-x86_64-binutils
+
+      - name: Alias x86_64-w64-mingw32-objdump.exe
+        run: ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe /clangarm64/bin/x86_64-w64-mingw32-objdump.exe
 
       - name: Where are my dependent dlls?
         continue-on-error: true

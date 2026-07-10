@@ -93,7 +93,7 @@ jobs:
 
       - name: Check python can call 64-w32-objump
         run: |
-          python.exe" -c "import subprocess; subprocess.check_call(['objdump', '--version'])"
+          python.exe -c "import subprocess; subprocess.check_call(['objdump', '--version'])"
           
   
       - name: Where are my dependent dlls?

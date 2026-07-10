@@ -91,6 +91,11 @@ jobs:
           ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe x86_64-w64-mingw32-objdump.exe
           echo PATH=$PATH
 
+      - name: Check python can call 64-w32-objump
+        run: |
+          python.exe" -c "import subprocess; subprocess.check_call(['objdump', '--version'])"
+          
+  
       - name: Where are my dependent dlls?
         continue-on-error: true
         id: test_lib_dll
@@ -157,7 +162,7 @@ jobs:
           date=$(date +%Y%m%d)
           mkdir dist
           INSTALLER=dist/qemu-$ARCH-setup-$date.exe
-          make installer SIGNCODE=true
+          make installer SIGNCODE=false
       # Recursive list using PowerShell (default shell on Windows runners)
       - name: List all files recursively (Bash)
         if: always()

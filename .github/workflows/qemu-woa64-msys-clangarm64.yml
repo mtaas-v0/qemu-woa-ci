@@ -86,9 +86,8 @@ jobs:
             mingw-w64-x86_64-binutils
             mingw-w64-x86_64-nsis
 
-      - uses: repolevedavaj/install-nsis@v1.2.1
-        with:
-          nsis-version: '3.12'
+      - name: Install NSIS
+        uses: negrutiu/nsis-install@v2
   
       - name: Check makensis
         run: |

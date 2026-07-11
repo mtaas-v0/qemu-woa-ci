@@ -197,7 +197,8 @@ jobs:
           mkdir dist
           date=$(date +%Y%m%d)
           export INSTALLER=dist/qemu-$ARCH-setup-$date.exe
-          C:\\a\\_temp\\msys64\\msys2_shell.cmd -ucrt64 -defterm -no-start -here -c 'export PATH="/c/Program Files (x86)/NSIS:$PATH" ; make installer SIGNCODE=false'
+          export PATH="/c/Program Files (x86)/NSIS:$PATH" 
+          C:\\a\\_temp\\msys64\\msys2_shell.cmd -ucrt64 -defterm -no-start -here -c 'make installer SIGNCODE=false'
           
          
           

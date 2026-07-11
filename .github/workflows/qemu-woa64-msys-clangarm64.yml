@@ -86,7 +86,9 @@ jobs:
             mingw-w64-x86_64-binutils
             mingw-w64-x86_64-nsis
 
-
+      - name: Install NSIS
+        uses: sourcetoad/action-install-nsis@v1
+  
       - name: Check makensis
         run: |
           where makensis

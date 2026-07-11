@@ -86,6 +86,14 @@ jobs:
             mingw-w64-x86_64-binutils
             mingw-w64-x86_64-nsis
 
+
+      - name: Check makensis
+        run: |
+          where makensis
+          which makensis
+          command -v makensis
+
+          
       - name: Alias x86_64-w64-mingw32-objdump.exe
         run: |
           ln /mingw64/x86_64-w64-mingw32/bin/objdump.exe /clangarm64/bin/x86_64-w64-mingw32-objdump.exe

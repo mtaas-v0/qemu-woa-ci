@@ -99,7 +99,7 @@ jobs:
         continue-on-error: true
         run: |
           where /mingw64/x86_64-w64-mingw32/bin/objdump.exe
-          python.exe -c "import subprocess; subprocess.check_call(['objdump', '--version'])"
+          python.exe -c "import subprocess; subprocess.check_call([\"objdump\", \"--version\"])"
 
       - name: Generate JSON Config
         run: |
@@ -182,7 +182,8 @@ jobs:
           mkdir dist
           date=$(date +%Y%m%d)
           export INSTALLER=dist/qemu-$ARCH-setup-$date.exe
-          msys2 -c 'make installer SIGNCODE=false'
+          C:\a\_temp\msys64\msys2_shell.cmd -ucrt64 -defterm -no-start -here -c 'make installer SIGNCODE=false'
+          
          
           
       # Recursive list using PowerShell (default shell on Windows runners)
@@ -197,7 +198,7 @@ jobs:
         with:
           name: buildonly-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
           path: ./build/           # The directory or file path to upload
-          retention-days: 7            # Optional: How long to keep the files (Default: 90)
+          retention-days: 1            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: error     # Optional: Fails the build if 'dist' is missing
 
       - name: Upload "dist" Artifacts
@@ -206,16 +207,16 @@ jobs:
         with:
           name: dist-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
           path: ./dist/           # The directory or file path to upload
-          retention-days: 7            # Optional: How long to keep the files (Default: 90)
+          retention-days: 1            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: warn     # Optional: Fails the build if 'dist' is missing
       
       - name: Upload "debug_sample" Artifacts
         uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: dist-clangarm64-msys2-${{ github.run_number }}       # The name of your downloadable zip file
+          name: debug_sample-${{ github.run_number }}       # The name of your downloadable zip file
           path: ./debug_sample/           # The directory or file path to upload
-          retention-days: 7            # Optional: How long to keep the files (Default: 90)
+          retention-days: 1            # Optional: How long to keep the files (Default: 90)
           if-no-files-found: warn     # Optional: Fails the build if 'dist' is missing
       
           

@@ -88,9 +88,14 @@ jobs:
 
       - name: Install NSIS
         uses: negrutiu/nsis-install@v2
+
+      - name: List NSIS
+        run: |
+          find "/C/Program Files (x86)/NSIS"
   
       - name: Check makensis
         run: |
+          export PATH="/c/Program Files (x86)/NSIS:$PATH"
           where makensis
           which makensis
           command -v makensis

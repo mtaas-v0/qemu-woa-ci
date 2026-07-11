@@ -129,7 +129,8 @@ def main():
                 shutil.copy(dep, dllfile)
 
         makensis = [
-            "makensis",
+            #"makensis",
+            r"C:\\Program Files (x86)\\NSIS\\Bin\\makensis.exe",
             "-V2",
             "-NOCD",
             "-DSRCDIR=" + args.srcdir,

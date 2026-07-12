@@ -131,7 +131,7 @@ def main():
         makensis = [
             #"makensis",
             r"C:\\Program Files (x86)\\NSIS\\Bin\\makensis.exe",
-            "-V2",
+            "-V4",
             "-NOCD",
             "-DSRCDIR=" + args.srcdir,
             "-DBINDIR=" + destdir + prefix,

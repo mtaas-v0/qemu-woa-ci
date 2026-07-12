@@ -146,6 +146,9 @@ def main():
         print(f'{os.getcwd()=}')
         subprocess.run(makensis)
         print(f'{args.outfile=}')
+        print(f'{os.path.abspath(args.outfile)=}')
+        assert os.path.exists(args.outfile)
+        
         signcode(args.outfile)
     finally:
         shutil.rmtree(destdir)

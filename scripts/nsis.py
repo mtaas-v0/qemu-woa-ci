@@ -136,12 +136,17 @@ def main():
             "-DSRCDIR=" + args.srcdir,
             "-DBINDIR=" + destdir + prefix,
         ]
+        
         if args.cpu == "aarch64" or args.cpu == "x86_64":
             makensis += ["-DW64"]
         makensis += ["-DDLLDIR=" + dlldir]
 
         makensis += ["-DOUTFILE=" + args.outfile] + args.nsisargs
+        print(f'{makensis=}')
+        import os
+        print(f'{os.getcwd()=}')
         subprocess.run(makensis)
+        print(f'{args.outfile=}')
         signcode(args.outfile)
     finally:
         shutil.rmtree(destdir)

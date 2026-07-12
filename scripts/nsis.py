@@ -143,7 +143,6 @@ def main():
 
         makensis += ["-DOUTFILE=" + args.outfile] + args.nsisargs
         print(f'{makensis=}')
-        import os
         print(f'{os.getcwd()=}')
         subprocess.run(makensis)
         print(f'{args.outfile=}')

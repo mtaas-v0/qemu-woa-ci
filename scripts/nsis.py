@@ -144,7 +144,7 @@ def main():
         makensis += ["-DOUTFILE=" + args.outfile] + args.nsisargs
         print(f'{makensis=}')
         print(f'{os.getcwd()=}')
-        subprocess.run(makensis)
+        subprocess.check_call(makensis)
         print(f'{args.outfile=}')
         print(f'{os.path.abspath(args.outfile)=}')
         assert os.path.exists(args.outfile)

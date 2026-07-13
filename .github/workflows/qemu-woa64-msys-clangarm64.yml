@@ -87,7 +87,7 @@ jobs:
             mingw-w64-x86_64-nsis
 
       - name: Install NSIS
-        uses: negrutiu/nsis-install@v2
+        uses: negrutiu/nsis-install@v3
 
       - name: List NSIS
         run: |
